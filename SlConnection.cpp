@@ -10,7 +10,7 @@ SlConnection::SlConnection(char *url){
 void SlConnection::getIp(){
 	if(this->curl){
 		this->initHttpRequest(false);
-		this->setupUrl(this->url);
+		this->setupUrl("ipinfo.io");
 		int res = curl_easy_perform(this->curl);
 		printf("res: %f\n", res);
 		curl_easy_reset(this->curl);
@@ -31,4 +31,8 @@ void SlConnection::setupUrl(char *url){
 	printf("url: %s\n", this->url);
 	curl_easy_setopt(this->curl, CURLOPT_URL, url);
 	
+}
+
+void SlConnection::setupParameters(char *data){
+	curl_easy_setopt(this->curl, CURLOPT_POSTFIELDS, data); 
 }

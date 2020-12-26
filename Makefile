@@ -1,5 +1,5 @@
 output: main.o motorController.a SlConnection.so
-	g++ -Wall main.o motorController.a SlConnection.so -pthread -lrt -lcurl -lcrypt -o slp
+	g++ -Wall main.o motorController.a SlConnection.so -I./include -pthread -lrt -lcurl -lcrypt -o slp
 
 main.o: main.cpp
 	g++ -c main.cpp
@@ -9,7 +9,7 @@ motorController.a: motorController.cpp motorController.h
 	ar rvs motorController.a motorController.so /usr/local/lib/libwiringPi.so
 
 SlConnection.so: SlConnection.cpp SlConnection.h
-	g++ -shared -c SlConnection.cpp -o SlConnection.so
+	g++ -shared -c SlConnection.cpp -o SlConnection.so -l/usr/lib -I/usr/lib
 
 
 clean: 

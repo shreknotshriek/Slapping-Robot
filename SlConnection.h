@@ -1,7 +1,7 @@
 #pragma once
 #include <cstdio>
 #include <curl/curl.h>
-
+#include <nlohmann/json.hpp>
 class SlConnection{
 	private: 
 		char *url = "ipinfo.io";
@@ -10,10 +10,8 @@ class SlConnection{
 	public:
 		SlConnection(char*);
 		void getIp();
-
-
-	private:
 		void setupUrl(char*);
 		void initHttpRequest(bool);
+		void setupParameters(char*);
 
 };
