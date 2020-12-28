@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string>
 
-using namespace nlohmann;
+using json = nlohmann::json;
 
 size_t toJsonCallBack(char *ptr, size_t size, size_t nmemb, std::string *userdata);
 
@@ -14,7 +14,7 @@ class SlConnection{
 		char *url = "ipinfo.io";
 		CURL *curl;
 		std::string reqData = std::string();
-		json* responseToJson();
+		json responseToJson();
 
 	public:
 		SlConnection(char*);
