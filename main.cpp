@@ -7,6 +7,5 @@ int main(){
 	SlConnection *con = new SlConnection("https://streamlabs.com/api/v1.0/authorize");
 	//SlConnection *con = new SlConnection("https://pokeapi.co/api/v2/");
 	con->getIp();
-	printf("this is the helloworld\n");
 	return 1;
 }
