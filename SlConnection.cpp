@@ -6,20 +6,21 @@ SlConnection::SlConnection(char *url){
 	this->curl = curl_easy_init();
 }
 
+json SlConnection::perform(){
+	curl_easy_perform(this->curl);
+	json j = this->responseToJson();
+	curl_easy_reset(this->curl);
+	curl_easy_cleanup(this->curl);
+	return j;
+}
 
 void SlConnection::getIp(){
 	if(this->curl){
 		this->initHttpRequest(false);
-		//this->setupUrl("ipinfo.io");
-		this->setupUrl("https://pokeapi.co/api/v2/");
+		this->setupUrl("ipinfo.io");
 		int res = curl_easy_perform(this->curl);
 		json j = this->responseToJson();
-		std::cout << j.dump();
-		std::string a = j["ability"];
-		json b;
-		b["allo"] = 420;
-		printf("\nslot: %s\n", j["berry"]);
-		printf("b: %d\n", b["allo"]);
+		printf("ip: %s\n", j["ip"].get<std::string>().c_str());
 		curl_easy_reset(this->curl);
 		curl_easy_cleanup(this->curl);
 	}
@@ -40,7 +41,6 @@ void SlConnection::initHttpRequest(bool post){
 
 void SlConnection::setupUrl(char *url){
 	this->url = url;
-	printf("url: %s\n", this->url);
 	curl_easy_setopt(this->curl, CURLOPT_URL, url);
 	
 }
@@ -50,7 +50,6 @@ void SlConnection::setupParameters(char *data){
 }
 
 size_t toJsonCallBack(char *ptr, size_t size, size_t nmemb, std::string *userData){
-	printf("size: %d\nnmemb: %d\n", size, nmemb);
 	userData->append(ptr, 0, nmemb);
 	return size * nmemb;
 }

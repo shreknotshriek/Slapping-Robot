@@ -22,5 +22,6 @@ class SlConnection{
 		void setupUrl(char*);
 		void initHttpRequest(bool);
 		void setupParameters(char*);
+		json perform();
 
 };
